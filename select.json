@@ -1,0 +1,92 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import os\n",
+    "import pandas as pd\n",
+    "import numpy as np\n",
+    "from PIL import Image\n",
+    "from skimage.data import imread\n",
+    "import matplotlib.pyplot as plt\n",
+    "import torch.nn as nn \n",
+    "import torch.nn.functional as F\n",
+    "import torch\n",
+    "from inceptionresnetv2.pytorch_load import InceptionResnetV2\n",
+    "from pathlib import Path\n",
+    "USE_GPU = True\n",
+    "\n",
+    "dtype = torch.float32 # we will be using float throughout this tutorial\n",
+    "# the default is gpu but if gpu is not available,then use cpu\n",
+    "if USE_GPU and torch.cuda.is_available():\n",
+    "    device = torch.device('cuda')\n",
+    "else:\n",
+    "    device = torch.device('cpu')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "ship_dir = '/datasets/ee285f-public/airbus_ship_detection/'\n",
+    "train_image_dir = os.path.join(ship_dir, 'train_v2')\n",
+    "test_image_dir = os.path.join(ship_dir, 'test_v2')\n",
+    "label = pd.read_csv('train_ship_label.csv')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "    print(\"frame： \",label.shape[0])\n",
+    "\n",
+    "    # delete annotations without ship\n",
+    "    delete = lable.dropna(axis=0)\n",
+    "    have_ships = label.shape[0]\n",
+    "    print(\"instance      ： \",have_ship)\n",
+    "    # store images with ship in another set\n",
+    "    images_with_ship = set()\n",
+    "    for num in range(have_ships):\n",
+    "        if label.iloc[num,0] not in images_with_ship:\n",
+    "            images.add(label.iloc[line,0])\n",
+    "    print(\"have ship： \",len(images_with_ship))\n",
+    "\n",
+    "    count = 0\n",
+    "    lis = os.listdir(ship_dir)\n",
+    "    for j in lis:\n",
+    "        if j not in images_with_ship:\n",
+    "            os.remove(os.path.join(im, j))\n",
+    "            count += 1\n",
+    "    print('%d images is deleted.'%(count))"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.0"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
