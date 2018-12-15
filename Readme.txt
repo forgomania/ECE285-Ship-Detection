@@ -1,5 +1,6 @@
 Codes for the course project, ECE285 Airbus-Ship-Detection Challenge.
 
+To train Inception model for classfication, please see in Classification folder.
 To train UNet for segmentation, run python Train.py
 We define the architecture and classes for U-Net in U_Net_Main
 For preview, please run Main_Ship.ipynb
